@@ -1,4 +1,5 @@
 import json
+import difflib
 
 #opening the dictionary data.json file in read mode
 fin = open("data.json", "r")
@@ -58,9 +59,26 @@ def lettersearch():
             found = True
     if found == False:
         print("No word with the specific length.")
-    
 
-#menu for the interactive dictionary
+    
+#Function 6 to display word suggestions
+#input a word with wrong spelling the program should be able to suggest the word that might be intended.
+
+def suggestword():
+    #string1 = ["Table", "Tree", "Trunk", "Thread"]
+    word = input("Enter word to search ")
+    if word in cont:
+        print("{} in list of words.".format(word))
+    #elif word not in string1:
+    #    sug = dif.get_close_matches(word,string1)
+    #    print("{} are the possible words you are searching.".format(sug))
+    else:
+        suggest = difflib.get_close_matches(word,cont)
+        if len(suggest) == 0:
+            print("Sorry could not suggest word..")
+        else:
+            print("{} are the possible words you are searching.".format(suggest))
+        
 
 while True:
     try:
@@ -72,11 +90,12 @@ while True:
         3.Display the meaning of the specific word.
         4.Display the word-meanings for the specific word that is there in the meaning
         5.Search and display words by number of letters
-        6.Exit program
+        6.list words that are similar to input
+        7.Exit program
 
 
         """)
-        choice = int(input("Enter your choice of operation(1-6): "))
+        choice = int(input("Enter your choice of operation(1-7): "))
         if choice == 1:
             dispwords()
         elif choice == 2:
@@ -88,6 +107,8 @@ while True:
         elif choice == 5:
             lettersearch()
         elif choice == 6:
+            suggestword()
+        elif choice == 7:
             break
         else:
             print("Invalid number!. Enter a number between 1 to 6.")
